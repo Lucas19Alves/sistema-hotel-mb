@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <style>
+        body {
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+    
+        .logo {
+          max-width: 200px;
+          height: auto;
+        }
+    
+        .hotel-name {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+    
+        .customer-form {
+          padding: 20px;
+          background-color: #f9f9f9;
+          border-radius: 10px;
+        }
+    
+        .reservation-box {
+          padding: 20px;
+          background-color: #f9f9f9;
+          border-radius: 10px;
+          height: 220px;
+          /* Ajuste conforme necessário */
+          overflow-y: auto;
+        }
+    
+        .reservation-box ul {
+          list-style-type: none;
+          padding: 0;
+        }
+    
+        .reservation-box ul li {
+          margin-bottom: 5px;
+        }
+    
+        .card {
+          margin-bottom: 20px;
+        }
+    
+        #toastMessage {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 9999;
+          background-color: #28a745;
+          /* Cor verde success */
+          color: #ffffff;
+          /* Cor do texto */
+          border-radius: 0.25rem;
+          padding: 10px 20px;
+        }
+      </style>
+</head>
+
+<body>
+
+    <header class="container-fluid pb-4">
+        <div class="row mt-3 align-items-center">
+            <div class="col-md-6 ">
+                <div class="ml-5">
+                    <img src="images/logomb-fotor-bg-remover-20230713155746.png" alt="Hotel Minas Bahia Logo"
+                        class="logo">
+                    <br>
+                    <span class="hotel-name">Hotel Minas Bahia</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form class="customer-form p-2" id="customerForm">
+                    <div class="text-center">
+                        <h5>Cadastro de cliente</h5>
+                    </div>
+                    <div class="form-row mb-1">
+                        <div class="col">
+                            <input type="text" class="form-control" id="nomeInput" placeholder="Nome">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="cpfInput" placeholder="CPF">
+                        </div>
+                    </div>
+                    <div class="form-row mb-1">
+                        <div class="col">
+                            <input type="date" class="form-control" id="dataNascimentoInput"
+                                placeholder="Data de Nascimento">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="celularInput" placeholder="Celular">
+                        </div>
+                    </div>
+                    <div class="form-row mb-1">
+                        <div class="col">
+                            <div class="form-group">
+                                <select class="form-control" id="sexoSelect">
+                                    <option value="" disabled selected>Selecione o sexo</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" id="cidadeInput" placeholder="Cidade">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-block" onclick="salvarCliente()">Cadastrar</button>
+                </form>
+            </div>
+
+        </div>
+    </header>
+
+    <section id="nav">
+        <ul class="nav nav-tabs m-1" id="myTabs">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html"><i class="fa fa-bed"></i> Quartos |</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cadastro.html"><i class="fa fa-address-card"></i> Cadastro |</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="consulta.html"><i class="fa fa-check"></i> Consulta |</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="reservas.html"><i class="fa fa-book"></i> Reservas</a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Conteúdo da aba de Cadastros -->
+    <div class="container mt-3" id="cadastros">
+        <h2 class="text-center border-bottom mt-5 border-secondary pb-3">Cadastros</h2>
+        <!-- Formulário de Cadastro -->
+        <form id="cadastroForm" method="post" action="processa_cadastro.php">
+            <div class="form-group">
+                <label for="nome"><b>Nome:</b></label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf"><b>CPF:</b></label>
+                <input type="text" class="form-control" id="cpf" name="cpf" required>
+            </div>
+            <div class="form-group">
+                <label for="dataNascimento"><b>Data de Nascimento:</b></label>
+                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
+            </div>
+            <div class="form-group">
+                <label for="celular"><b>Celular:</b></label>
+                <input type="tel" class="form-control" id="celular" name="celular" required>
+            </div>
+            <div class="form-group">
+                <label for="cidade"><b>Cidade:</b></label>
+                <input type="text" class="form-control" id="cidade" name="cidade" required>
+            </div>
+            <div class="form-group">
+                <label for="sexo"><b>Sexo:</b></label>
+                <select class="form-control" id="sexo" name="sexo" required>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                </select>
+            </div>
+            <button type="submit" name="salvar_cadastro" class="btn btn-success w-100" id="submitBtn">Salvar
+                Cadastro</button>
+            <input type="hidden" id="cadastro" name="cadastro">
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/script.js" defer></script>
+
+    <script>
+
+
+
+    </script>
